@@ -1,0 +1,14 @@
+# TLCC
+
+Unity ile geliştirdiğim 2D top-down silah oyunu.
+
+## Kontroller
+- WASD: hareket
+- Fare: nişan alma
+
+## Özellikler
+- Fareye doğru dönen karakter
+- Yumuşak kamera takibi
+
+## Durum
+Geliştirme aşamasında.
