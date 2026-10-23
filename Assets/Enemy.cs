@@ -1,0 +1,33 @@
+using Unity.VisualScripting;
+using UnityEngine;
+
+public class Enemy : MonoBehaviour
+{
+    public float speed = 2f;
+    public int health = 3;
+    private Transform player;
+    void Start()
+    {
+        player = GameObject.FindWithTag("Player").transform;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (player == null) return;
+
+        transform.position = Vector2.MoveTowards(
+            transform.position,
+            player.position, speed * Time.deltaTime);
+
+    }
+    
+    public void TakeDamage(int damage)
+    {
+        health -= damage; ;
+        if (health <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
+}
