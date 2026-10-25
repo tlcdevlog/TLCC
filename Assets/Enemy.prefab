@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 3031570840418594121}
   - component: {fileID: 5373732078560906600}
   - component: {fileID: 1511058676299912047}
-  - component: {fileID: 7153233833813893256}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -103,7 +102,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5269664692967102172}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -180,19 +179,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ea43b6fcadd1004db854fae6701cd98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
-  speed: 2
-  health: 3
---- !u!114 &7153233833813893256
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5269664692967102172}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ea43b6fcadd1004db854fae6701cd98, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Enemy
-  speed: 2
+  contactDamage: 10
+  speed: 3
   health: 3
