@@ -9,11 +9,16 @@ public class Enemy : MonoBehaviour
     private Transform player;
     private Rigidbody2D rb;
     private Vector2 knockbackVelocity;
+    private int maxHealth;
+    public float strongKnockback = 3f;
+    public float weakKnockback = 1f;
+    public float knockbackDuration = 0.15f;
     private float knockbackTimer;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        maxHealth = health;
     }
 
     private void Start()
@@ -28,6 +33,21 @@ public class Enemy : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    public void TakeHit(int damage, Vector2 direction)
+    {
+
+        bool isFirstHit = health == maxHealth;
+
+        health -= damage;
+        if (health <= 0)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        float force = isFirstHit ? strongKnockback : weakKnockback;
+        ApplyKnockback(direction, force, knockbackDuration);
     }
 
     private void OnCollisionStay2D(Collision2D collision)

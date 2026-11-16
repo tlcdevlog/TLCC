@@ -1,6 +1,5 @@
-using JetBrains.Annotations;
 using UnityEngine;
-
+  
 public class Bullet : MonoBehaviour
 {
     public float speed = 12f;
@@ -22,8 +21,7 @@ public class Bullet : MonoBehaviour
         {
             
             Vector2 dir = other.transform.position - transform.position;
-            enemy.ApplyKnockback(dir, 6f, 0.1f);
-            enemy.TakeDamage(1);
+            enemy.TakeHit(1, dir);
             Destroy(gameObject);
         }
         
