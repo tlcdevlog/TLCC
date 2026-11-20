@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using System.Collections;
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private int contactDamage = 10;
@@ -14,11 +14,20 @@ public class Enemy : MonoBehaviour
     public float weakKnockback = 1f;
     public float knockbackDuration = 0.15f;
     private float knockbackTimer;
+    [Header("Hit Flash")]
+    public Color flashColor = Color.red;
+    public float flashDuration = 0.05f;
+
+    private SpriteRenderer sr;
+    private Color baseColor;
+    private Coroutine flashRoutine;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         maxHealth = health;
+        sr = GetComponent<SpriteRenderer>();
+        baseColor = sr.color;
     }
 
     private void Start()
@@ -43,9 +52,14 @@ public class Enemy : MonoBehaviour
         health -= damage;
         if (health <= 0)
         {
+            if (CameraFollow.Instance != null)
+                CameraFollow.Instance.Shake(0.1f, 0.15f);
+            if (HitStop.Instance != null)
+                HitStop.Instance.Stop(0.15f);
             Destroy(gameObject);
             return;
         }
+        Flash();
         float force = isFirstHit ? strongKnockback : weakKnockback;
         ApplyKnockback(direction, force, knockbackDuration);
     }
@@ -80,5 +94,17 @@ public class Enemy : MonoBehaviour
         }
 
         rb.MovePosition(rb.position + move * Time.fixedDeltaTime);
+    }
+    private void Flash()
+    {
+        if (flashRoutine != null) StopCoroutine(flashRoutine);
+        flashRoutine = StartCoroutine(FlashRoutine());
+    }
+    private IEnumerator FlashRoutine()
+    {
+        sr.color = flashColor;
+        yield return new WaitForSeconds(flashDuration);
+        sr.color = baseColor;
+        flashRoutine = null;
     }
 }
