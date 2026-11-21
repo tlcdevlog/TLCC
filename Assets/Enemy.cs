@@ -26,7 +26,7 @@ public class Enemy : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         maxHealth = health;
-        sr = GetComponent<SpriteRenderer>();
+        sr = GetComponentInChildren<SpriteRenderer>();
         baseColor = sr.color;
     }
 
