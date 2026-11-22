@@ -3,6 +3,11 @@ using UnityEngine.Rendering;
 
 public class PlayerController : MonoBehaviour
 {
+    [Header("Yürüme Animasyonu")]
+    public Sprite[] walkFrames;
+    public Sprite idleSprite;
+    public float frameTime = 0.12f;
+
     [Header("Hareket Ayarý")]
     public float moveSpeed = 5f;
 
@@ -21,6 +26,8 @@ public class PlayerController : MonoBehaviour
     private float bobTimer;
     public float squashAmount = 0.04f;
     private Vector3 baseScale;
+    private float frameTimer;
+    private int frameIndex;
 
 
     
@@ -43,6 +50,7 @@ public class PlayerController : MonoBehaviour
         mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         sr.flipX = mousePos.x < transform.position.x;
 
+        WalkAnimation();
         Bob();
         Squash();
     }
@@ -79,5 +87,25 @@ public class PlayerController : MonoBehaviour
         }
 
         visual.localScale = Vector3.Lerp(visual.localScale, targetScale, 0.3f);
+    }
+    void WalkAnimation()
+    {
+        if(moveInput.sqrMagnitude > 0.01f)
+        {
+            frameTimer += Time.deltaTime;
+
+            if(frameTimer >= frameTime)
+            {
+                frameTimer = 0f;
+                frameIndex = (frameIndex + 1) % walkFrames.Length;
+                sr.sprite = walkFrames[frameIndex];
+            }
+        }
+        else
+        {
+            frameTimer = 0f;
+            frameIndex = 0;
+            sr.sprite = idleSprite;
+        }
     }
 }
