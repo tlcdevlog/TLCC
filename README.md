@@ -36,6 +36,7 @@ shoot lasers, and see how long you last.
 - [ ] Blood splatter on zombie death
 - [ ] Different weapons, with bullets matching each weapon
 - [ ] Shop system (buy items and weapons between waves)
+- [ ] Custom mouse cursor
 
 ## Built With
 
